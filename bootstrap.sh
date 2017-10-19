@@ -4,17 +4,19 @@
 PS_VERSION=prestashop_1.7.2.3.zip
 
 ## Setup and basic tools
-sudo apt-get update && sudo apt-get upgrade -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get upgrade -yq
 sudo apt-get install -y unzip
 
 ## Apache
 sudo apt-get install -y apache2 libapache2-mod-php5
+# Enable required mod rewrite
+sudo a2enmod rewrite
 
 ## MySQL and PHP
 echo "mysql-server-5.5 mysql-server/root_password password abc123" | sudo debconf-set-selections
 echo "mysql-server-5.5 mysql-server/root_password_again password abc123" | sudo debconf-set-selections
 sudo apt-get install -y mysql-server php5-mysql
-sudo apt-get install -y php5 php5-mcrypt php5-curl 
+sudo apt-get install -y php5 php5-mcrypt php5-curl php5-intl
 # sudo apt-get install -y php5-memcached
 
 ## phpMyAdmin
